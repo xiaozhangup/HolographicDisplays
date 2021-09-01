@@ -34,15 +34,15 @@ class ReplacementHolder {
     }
 
     private boolean needsRefresh(long currentTick) throws PlaceholderException {
-        if (lastUpdateTick == currentTick) {
-            return false; // No need to refresh
-        }
-
         if (lastUpdateTick == -1) {
             return true; // Force at least the initial refresh
         }
 
-        return currentTick - lastUpdateTick >= placeholder.getRefreshIntervalTicks();
+        if (lastUpdateTick == currentTick) {
+            return false; // No need to refresh
+        }
+
+        return placeholder.requiresUpdate(currentTick, lastUpdateTick);
     }
 
 }

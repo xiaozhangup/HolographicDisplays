@@ -7,8 +7,8 @@ package me.filoghost.holographicdisplays.plugin.internal.placeholder;
 
 import me.filoghost.fcommons.collection.CaseInsensitiveHashMap;
 import me.filoghost.fcommons.collection.CaseInsensitiveMap;
-import me.filoghost.holographicdisplays.api.placeholder.GlobalPlaceholder;
-import me.filoghost.holographicdisplays.api.placeholder.GlobalPlaceholderFactory;
+import me.filoghost.holographicdisplays.api.placeholder.global.GlobalPlaceholder;
+import me.filoghost.holographicdisplays.api.placeholder.global.GlobalPlaceholderFactory;
 
 import java.util.Map;
 

@@ -26,9 +26,9 @@ public abstract class StandardPlaceholder {
         return source.isIndividual();
     }
 
-    public final int getRefreshIntervalTicks() throws PlaceholderException {
+    public final boolean requiresUpdate(long currentTick, long lastUpdateTick) throws PlaceholderException {
         try {
-            return doGetRefreshIntervalTicks();
+            return externalRequiresUpdate(currentTick, lastUpdateTick);
         } catch (Throwable t) {
             throw new PlaceholderException(t, getSource());
         }
@@ -36,7 +36,7 @@ public abstract class StandardPlaceholder {
 
     public final @Nullable String getReplacement(Player player, @Nullable String argument) throws PlaceholderException {
         try {
-            return doGetReplacement(player, argument);
+            return externalGetReplacement(player, argument);
         } catch (Throwable t) {
             throw new PlaceholderException(t, getSource());
         }
@@ -46,8 +46,8 @@ public abstract class StandardPlaceholder {
      * Below methods may use externally provided objects which can throw any exception
      */
 
-    protected abstract int doGetRefreshIntervalTicks() throws Throwable;
+    protected abstract boolean externalRequiresUpdate(long currentTick, long lastUpdateTick) throws Throwable;
 
-    protected abstract @Nullable String doGetReplacement(Player player, @Nullable String argument) throws Throwable;
+    protected abstract @Nullable String externalGetReplacement(Player player, @Nullable String argument) throws Throwable;
 
 }

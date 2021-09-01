@@ -7,11 +7,11 @@ package me.filoghost.holographicdisplays.plugin.internal.placeholder;
 
 import com.google.common.collect.ImmutableList;
 import me.filoghost.fcommons.Preconditions;
-import me.filoghost.holographicdisplays.api.placeholder.GlobalPlaceholder;
+import me.filoghost.holographicdisplays.api.placeholder.global.PeriodicRefreshGlobalPlaceholder;
 
 import java.util.List;
 
-public class AnimationPlaceholder implements GlobalPlaceholder {
+public class AnimationPlaceholder implements PeriodicRefreshGlobalPlaceholder {
 
     private final int refreshIntervalTicks;
     private final ImmutableList<String> frames;

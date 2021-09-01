@@ -10,6 +10,6 @@ public interface Placeholder {
     /**
      * @since 1
      */
-    int getRefreshIntervalTicks();
+    boolean requiresUpdate(long currentTick, long lastUpdateTick);
 
 }

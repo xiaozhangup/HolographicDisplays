@@ -5,8 +5,8 @@
  */
 package me.filoghost.holographicdisplays.plugin.placeholder.registry;
 
-import me.filoghost.holographicdisplays.api.placeholder.IndividualPlaceholder;
-import me.filoghost.holographicdisplays.api.placeholder.IndividualPlaceholderFactory;
+import me.filoghost.holographicdisplays.api.placeholder.individual.IndividualPlaceholder;
+import me.filoghost.holographicdisplays.api.placeholder.individual.IndividualPlaceholderFactory;
 import me.filoghost.holographicdisplays.plugin.placeholder.PlaceholderException;
 import me.filoghost.holographicdisplays.plugin.placeholder.StandardPlaceholder;
 import org.bukkit.entity.Player;
@@ -55,12 +55,12 @@ class IndividualPlaceholderExpansion extends PlaceholderExpansion {
         }
 
         @Override
-        protected int doGetRefreshIntervalTicks() {
-            return placeholder.getRefreshIntervalTicks();
+        protected boolean externalRequiresUpdate(long currentTick, long lastUpdateTick) {
+            return placeholder.requiresUpdate(currentTick, lastUpdateTick);
         }
 
         @Override
-        protected @Nullable String doGetReplacement(Player player, @Nullable String argument) {
+        protected @Nullable String externalGetReplacement(Player player, @Nullable String argument) {
             return placeholder.getReplacement(player, argument);
         }
 

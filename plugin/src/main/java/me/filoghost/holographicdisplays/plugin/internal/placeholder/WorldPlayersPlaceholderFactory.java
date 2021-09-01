@@ -6,8 +6,9 @@
 package me.filoghost.holographicdisplays.plugin.internal.placeholder;
 
 import me.filoghost.fcommons.Strings;
-import me.filoghost.holographicdisplays.api.placeholder.GlobalPlaceholder;
-import me.filoghost.holographicdisplays.api.placeholder.GlobalPlaceholderFactory;
+import me.filoghost.holographicdisplays.api.placeholder.global.GlobalPlaceholder;
+import me.filoghost.holographicdisplays.api.placeholder.global.GlobalPlaceholderFactory;
+import me.filoghost.holographicdisplays.api.placeholder.global.PeriodicRefreshGlobalPlaceholder;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -26,7 +27,7 @@ public class WorldPlayersPlaceholderFactory implements GlobalPlaceholderFactory 
     }
 
 
-    private static class WorldPlayersPlaceholder implements GlobalPlaceholder {
+    private static class WorldPlayersPlaceholder implements PeriodicRefreshGlobalPlaceholder {
 
         private final String[] worldNames;
 

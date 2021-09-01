@@ -5,7 +5,7 @@
  */
 package me.filoghost.holographicdisplays.plugin.internal.placeholder;
 
-import me.filoghost.holographicdisplays.api.placeholder.GlobalPlaceholder;
+import me.filoghost.holographicdisplays.api.placeholder.global.GlobalPlaceholder;
 
 public class ImmutablePlaceholder implements GlobalPlaceholder {
 
@@ -16,8 +16,8 @@ public class ImmutablePlaceholder implements GlobalPlaceholder {
     }
 
     @Override
-    public int getRefreshIntervalTicks() {
-        return Integer.MAX_VALUE;
+    public boolean requiresUpdate(long currentTick, long lastUpdateTick) {
+        return false;
     }
 
     @Override

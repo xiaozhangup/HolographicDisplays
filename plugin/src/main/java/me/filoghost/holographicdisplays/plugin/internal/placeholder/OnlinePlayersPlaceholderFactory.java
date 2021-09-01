@@ -6,8 +6,9 @@
 package me.filoghost.holographicdisplays.plugin.internal.placeholder;
 
 import me.filoghost.fcommons.Strings;
-import me.filoghost.holographicdisplays.api.placeholder.GlobalPlaceholder;
-import me.filoghost.holographicdisplays.api.placeholder.GlobalPlaceholderFactory;
+import me.filoghost.holographicdisplays.api.placeholder.global.GlobalPlaceholder;
+import me.filoghost.holographicdisplays.api.placeholder.global.GlobalPlaceholderFactory;
+import me.filoghost.holographicdisplays.api.placeholder.global.PeriodicRefreshGlobalPlaceholder;
 import me.filoghost.holographicdisplays.plugin.bridge.bungeecord.BungeeServerTracker;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.Nullable;
@@ -32,7 +33,7 @@ public class OnlinePlayersPlaceholderFactory implements GlobalPlaceholderFactory
     }
 
 
-    private static class LocalOnlinePlayersPlaceholder implements GlobalPlaceholder {
+    private static class LocalOnlinePlayersPlaceholder implements PeriodicRefreshGlobalPlaceholder {
 
         @Override
         public int getRefreshIntervalTicks() {
@@ -47,7 +48,7 @@ public class OnlinePlayersPlaceholderFactory implements GlobalPlaceholderFactory
     }
 
 
-    private static class BungeeOnlinePlayersPlaceholder implements GlobalPlaceholder {
+    private static class BungeeOnlinePlayersPlaceholder implements PeriodicRefreshGlobalPlaceholder {
 
         private final String[] serverNames;
         private final BungeeServerTracker bungeeServerTracker;

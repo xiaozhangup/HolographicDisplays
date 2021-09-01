@@ -5,15 +5,16 @@
  */
 package me.filoghost.holographicdisplays.plugin.placeholder.registry;
 
-import me.filoghost.holographicdisplays.api.placeholder.GlobalPlaceholder;
-import me.filoghost.holographicdisplays.api.placeholder.GlobalPlaceholderReplacer;
+import me.filoghost.holographicdisplays.api.placeholder.global.GlobalPlaceholderReplacer;
+import me.filoghost.holographicdisplays.api.placeholder.global.PeriodicRefreshGlobalPlaceholder;
+import org.jetbrains.annotations.Nullable;
 
-class SimpleGlobalPlaceholder implements GlobalPlaceholder {
+class SimplePeriodicRefreshGlobalPlaceholder implements PeriodicRefreshGlobalPlaceholder {
 
     private final int refreshIntervalTicks;
     private final GlobalPlaceholderReplacer placeholderReplacer;
 
-    SimpleGlobalPlaceholder(int refreshIntervalTicks, GlobalPlaceholderReplacer placeholderReplacer) {
+    SimplePeriodicRefreshGlobalPlaceholder(int refreshIntervalTicks, GlobalPlaceholderReplacer placeholderReplacer) {
         this.refreshIntervalTicks = refreshIntervalTicks;
         this.placeholderReplacer = placeholderReplacer;
     }
@@ -24,7 +25,7 @@ class SimpleGlobalPlaceholder implements GlobalPlaceholder {
     }
 
     @Override
-    public String getReplacement(String argument) {
+    public String getReplacement(@Nullable String argument) {
         return placeholderReplacer.getReplacement(argument);
     }
 

@@ -8,12 +8,12 @@ package me.filoghost.holographicdisplays.plugin.placeholder.registry;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Table;
-import me.filoghost.holographicdisplays.api.placeholder.IndividualPlaceholder;
-import me.filoghost.holographicdisplays.api.placeholder.IndividualPlaceholderFactory;
-import me.filoghost.holographicdisplays.api.placeholder.IndividualPlaceholderReplacer;
-import me.filoghost.holographicdisplays.api.placeholder.GlobalPlaceholder;
-import me.filoghost.holographicdisplays.api.placeholder.GlobalPlaceholderFactory;
-import me.filoghost.holographicdisplays.api.placeholder.GlobalPlaceholderReplacer;
+import me.filoghost.holographicdisplays.api.placeholder.individual.IndividualPlaceholder;
+import me.filoghost.holographicdisplays.api.placeholder.individual.IndividualPlaceholderFactory;
+import me.filoghost.holographicdisplays.api.placeholder.individual.IndividualPlaceholderReplacer;
+import me.filoghost.holographicdisplays.api.placeholder.global.GlobalPlaceholder;
+import me.filoghost.holographicdisplays.api.placeholder.global.GlobalPlaceholderFactory;
+import me.filoghost.holographicdisplays.api.placeholder.global.GlobalPlaceholderReplacer;
 import me.filoghost.holographicdisplays.api.placeholder.RegisteredPlaceholder;
 import me.filoghost.holographicdisplays.plugin.placeholder.parsing.PlaceholderIdentifier;
 import me.filoghost.holographicdisplays.plugin.placeholder.parsing.PlaceholderOccurrence;
@@ -39,7 +39,7 @@ public class PlaceholderRegistry {
 
     public void registerIndividualPlaceholderReplacer(
             Plugin plugin, String identifier, int refreshIntervalTicks, IndividualPlaceholderReplacer placeholderReplacer) {
-        registerIndividualPlaceholder(plugin, identifier, new SimpleIndividualPlaceholder(refreshIntervalTicks, placeholderReplacer));
+        registerIndividualPlaceholder(plugin, identifier, new SimplePeriodicRefreshIndividualPlaceholder(refreshIntervalTicks, placeholderReplacer));
     }
 
     public void registerIndividualPlaceholder(Plugin plugin, String identifier, IndividualPlaceholder placeholder) {
@@ -53,7 +53,7 @@ public class PlaceholderRegistry {
 
     public void registerGlobalPlaceholderReplacer(
             Plugin plugin, String identifier, int refreshIntervalTicks, GlobalPlaceholderReplacer placeholderReplacer) {
-        registerGlobalPlaceholder(plugin, identifier, new SimpleGlobalPlaceholder(refreshIntervalTicks, placeholderReplacer));
+        registerGlobalPlaceholder(plugin, identifier, new SimplePeriodicRefreshGlobalPlaceholder(refreshIntervalTicks, placeholderReplacer));
     }
 
     public void registerGlobalPlaceholder(Plugin plugin, String identifier, GlobalPlaceholder placeholder) {

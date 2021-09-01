@@ -5,18 +5,18 @@
  */
 package me.filoghost.holographicdisplays.plugin.placeholder.registry;
 
-import me.filoghost.holographicdisplays.api.placeholder.IndividualPlaceholder;
-import me.filoghost.holographicdisplays.api.placeholder.IndividualPlaceholderReplacer;
+import me.filoghost.holographicdisplays.api.placeholder.individual.IndividualPlaceholderReplacer;
+import me.filoghost.holographicdisplays.api.placeholder.individual.PeriodicRefreshIndividualPlaceholder;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-class SimpleIndividualPlaceholder implements IndividualPlaceholder {
+class SimplePeriodicRefreshIndividualPlaceholder implements PeriodicRefreshIndividualPlaceholder {
 
     private final int refreshIntervalTicks;
     private final IndividualPlaceholderReplacer placeholderReplacer;
 
-    SimpleIndividualPlaceholder(int refreshIntervalTicks, IndividualPlaceholderReplacer placeholderReplacer) {
+    SimplePeriodicRefreshIndividualPlaceholder(int refreshIntervalTicks, IndividualPlaceholderReplacer placeholderReplacer) {
         this.refreshIntervalTicks = refreshIntervalTicks;
         this.placeholderReplacer = placeholderReplacer;
     }

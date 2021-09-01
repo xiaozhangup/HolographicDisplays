@@ -11,6 +11,7 @@ import me.filoghost.holographicdisplays.api.Position;
 import me.filoghost.holographicdisplays.api.internal.HolographicDisplaysAPIProvider;
 import me.filoghost.holographicdisplays.plugin.hologram.base.ImmutablePosition;
 import me.filoghost.holographicdisplays.plugin.placeholder.registry.PlaceholderRegistry;
+import me.filoghost.holographicdisplays.plugin.tick.TickClock;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -24,13 +25,16 @@ public class DefaultHolographicDisplaysAPIProvider extends HolographicDisplaysAP
 
     private final APIHologramManager apiHologramManager;
     private final PlaceholderRegistry placeholderRegistry;
+    private final TickClock tickClock;
 
     // Optimization: avoid creating a new instance every time a plugin requires it, in case it never stores a reference
     private final Map<Plugin, HolographicDisplaysAPI> apiInstanceCache;
 
-    public DefaultHolographicDisplaysAPIProvider(APIHologramManager apiHologramManager, PlaceholderRegistry placeholderRegistry) {
+    public DefaultHolographicDisplaysAPIProvider(
+            APIHologramManager apiHologramManager, PlaceholderRegistry placeholderRegistry, TickClock tickClock) {
         this.apiHologramManager = apiHologramManager;
         this.placeholderRegistry = placeholderRegistry;
+        this.tickClock = tickClock;
         this.apiInstanceCache = new WeakHashMap<>();
     }
 

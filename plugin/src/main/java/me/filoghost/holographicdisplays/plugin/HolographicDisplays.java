@@ -140,7 +140,7 @@ public class HolographicDisplays extends FCommonsPlugin {
 
         // Enable the APIs
         HolographicDisplaysAPIProvider.setImplementation(
-                new DefaultHolographicDisplaysAPIProvider(apiHologramManager, placeholderRegistry));
+                new DefaultHolographicDisplaysAPIProvider(apiHologramManager, placeholderRegistry, tickClock));
         enableLegacyAPI(v2HologramManager, placeholderRegistry);
 
         // Setup external plugin hooks
