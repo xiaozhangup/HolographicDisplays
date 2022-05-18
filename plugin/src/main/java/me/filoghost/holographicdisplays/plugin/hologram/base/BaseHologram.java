@@ -6,6 +6,7 @@
 package me.filoghost.holographicdisplays.plugin.hologram.base;
 
 import me.filoghost.fcommons.Preconditions;
+import me.filoghost.holographicdisplays.api.beta.Position;
 import me.filoghost.holographicdisplays.plugin.hologram.tracking.LineTrackerManager;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -20,7 +21,7 @@ public abstract class BaseHologram extends BaseHologramComponent {
     private final HologramPosition hologramPosition;
     private final LineTrackerManager lineTrackerManager;
 
-    public BaseHologram(ImmutablePosition position, LineTrackerManager lineTrackerManager) {
+    public BaseHologram(Position position, LineTrackerManager lineTrackerManager) {
         this.hologramPosition = new HologramPosition(position);
         this.lineTrackerManager = lineTrackerManager;
     }
@@ -41,7 +42,7 @@ public abstract class BaseHologram extends BaseHologramComponent {
         getLines().setDeleted();
     }
 
-    public @NotNull ImmutablePosition getPosition() {
+    public @NotNull Position getPosition() {
         return hologramPosition.getPosition();
     }
 
@@ -62,10 +63,10 @@ public abstract class BaseHologram extends BaseHologramComponent {
 
     public void setPosition(@NotNull String worldName, double x, double y, double z) {
         Preconditions.notNull(worldName, "worldName");
-        setPosition(new ImmutablePosition(worldName, x, y, z));
+        setPosition(Position.of(worldName, x, y, z));
     }
 
-    public void setPosition(@NotNull ImmutablePosition position) {
+    public void setPosition(@NotNull Position position) {
         Preconditions.notNull(position, "position");
         checkNotDeleted();
 

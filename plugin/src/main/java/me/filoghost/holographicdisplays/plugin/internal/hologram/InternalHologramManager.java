@@ -5,8 +5,8 @@
  */
 package me.filoghost.holographicdisplays.plugin.internal.hologram;
 
+import me.filoghost.holographicdisplays.api.beta.Position;
 import me.filoghost.holographicdisplays.api.beta.hologram.Hologram;
-import me.filoghost.holographicdisplays.plugin.hologram.base.ImmutablePosition;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -16,10 +16,10 @@ import java.util.function.Function;
 
 public class InternalHologramManager {
 
-    private final Function<ImmutablePosition, Hologram> hologramFactory;
+    private final Function<Position, Hologram> hologramFactory;
     private final List<InternalHologram> holograms;
 
-    public InternalHologramManager(Function<ImmutablePosition, Hologram> hologramFactory) {
+    public InternalHologramManager(Function<Position, Hologram> hologramFactory) {
         this.hologramFactory = hologramFactory;
         this.holograms = new ArrayList<>();
     }
@@ -33,7 +33,7 @@ public class InternalHologramManager {
         return null;
     }
 
-    public InternalHologram createHologram(String name, ImmutablePosition position) {
+    public InternalHologram createHologram(String name, Position position) {
         if (getHologramByName(name) != null) {
             throw new IllegalStateException("hologram named \"" + name + "\" already exists");
         }

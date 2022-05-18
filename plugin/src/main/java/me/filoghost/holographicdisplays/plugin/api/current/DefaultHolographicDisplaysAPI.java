@@ -15,7 +15,6 @@ import me.filoghost.holographicdisplays.api.beta.placeholder.GlobalPlaceholderRe
 import me.filoghost.holographicdisplays.api.beta.placeholder.IndividualPlaceholder;
 import me.filoghost.holographicdisplays.api.beta.placeholder.IndividualPlaceholderFactory;
 import me.filoghost.holographicdisplays.api.beta.placeholder.IndividualPlaceholderReplaceFunction;
-import me.filoghost.holographicdisplays.plugin.hologram.base.ImmutablePosition;
 import me.filoghost.holographicdisplays.plugin.placeholder.registry.PlaceholderRegistry;
 import org.bukkit.Location;
 import org.bukkit.plugin.Plugin;
@@ -41,7 +40,7 @@ class DefaultHolographicDisplaysAPI implements HolographicDisplaysAPI {
         Preconditions.notNull(location.getWorld(), "location.getWorld()");
         Preconditions.checkMainThread("async hologram creation");
 
-        return apiHologramManager.createHologram(ImmutablePosition.of(location), plugin);
+        return apiHologramManager.createHologram(Position.of(location), plugin);
     }
 
     @Override
@@ -50,7 +49,7 @@ class DefaultHolographicDisplaysAPI implements HolographicDisplaysAPI {
         Preconditions.notNull(position.getWorldName(), "position.getWorldName()");
         Preconditions.checkMainThread("async hologram creation");
 
-        return apiHologramManager.createHologram(ImmutablePosition.of(position), plugin);
+        return apiHologramManager.createHologram(position, plugin);
     }
 
     @Override

@@ -10,7 +10,7 @@ import com.gmail.filoghost.holographicdisplays.api.internal.HologramsAPIProvider
 import com.gmail.filoghost.holographicdisplays.api.placeholder.PlaceholderReplacer;
 import me.filoghost.fcommons.Preconditions;
 import me.filoghost.fcommons.collection.CollectionUtils;
-import me.filoghost.holographicdisplays.plugin.hologram.base.ImmutablePosition;
+import me.filoghost.holographicdisplays.api.beta.Position;
 import me.filoghost.holographicdisplays.plugin.placeholder.registry.LegacyGlobalPlaceholderExpansion;
 import me.filoghost.holographicdisplays.plugin.placeholder.registry.PlaceholderRegistry;
 import org.bukkit.Location;
@@ -40,7 +40,7 @@ public class V2HologramsAPIProvider extends HologramsAPIProvider {
         Preconditions.notNull(source.getWorld(), "source.getWorld()");
         Preconditions.checkMainThread("async hologram creation");
 
-        return hologramManager.createHologram(ImmutablePosition.of(source), plugin);
+        return hologramManager.createHologram(Position.of(source), plugin);
     }
 
     @Override

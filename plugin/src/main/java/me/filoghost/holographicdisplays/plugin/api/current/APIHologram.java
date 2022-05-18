@@ -10,7 +10,6 @@ import me.filoghost.holographicdisplays.api.beta.Position;
 import me.filoghost.holographicdisplays.api.beta.hologram.Hologram;
 import me.filoghost.holographicdisplays.api.beta.hologram.PlaceholderSetting;
 import me.filoghost.holographicdisplays.plugin.hologram.base.BaseHologram;
-import me.filoghost.holographicdisplays.plugin.hologram.base.ImmutablePosition;
 import me.filoghost.holographicdisplays.plugin.hologram.tracking.LineTrackerManager;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -26,7 +25,7 @@ class APIHologram extends BaseHologram implements Hologram {
     private @NotNull PlaceholderSetting placeholderSetting;
 
     APIHologram(
-            ImmutablePosition position,
+            Position position,
             Plugin plugin,
             APIHologramManager hologramManager,
             LineTrackerManager lineTrackerManager) {
@@ -47,11 +46,6 @@ class APIHologram extends BaseHologram implements Hologram {
     @Override
     public @NotNull DefaultVisibilitySettings getVisibilitySettings() {
         return visibilitySettings;
-    }
-
-    @Override
-    public void setPosition(@NotNull Position position) {
-        super.setPosition(ImmutablePosition.of(position));
     }
 
     @Override

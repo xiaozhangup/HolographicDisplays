@@ -9,6 +9,7 @@ import com.gmail.filoghost.holographicdisplays.api.internal.HologramsAPIProvider
 import me.filoghost.fcommons.FCommonsPlugin;
 import me.filoghost.fcommons.FeatureSupport;
 import me.filoghost.fcommons.logging.ErrorCollector;
+import me.filoghost.holographicdisplays.api.beta.Position;
 import me.filoghost.holographicdisplays.api.beta.hologram.Hologram;
 import me.filoghost.holographicdisplays.api.beta.internal.HolographicDisplaysAPIProvider;
 import me.filoghost.holographicdisplays.nms.common.NMSManager;
@@ -21,14 +22,13 @@ import me.filoghost.holographicdisplays.plugin.bridge.placeholderapi.Placeholder
 import me.filoghost.holographicdisplays.plugin.commands.HologramCommandManager;
 import me.filoghost.holographicdisplays.plugin.commands.InternalHologramEditor;
 import me.filoghost.holographicdisplays.plugin.config.ConfigManager;
-import me.filoghost.holographicdisplays.plugin.config.InternalHologramLoadException;
 import me.filoghost.holographicdisplays.plugin.config.InternalHologramConfig;
+import me.filoghost.holographicdisplays.plugin.config.InternalHologramLoadException;
 import me.filoghost.holographicdisplays.plugin.config.Settings;
 import me.filoghost.holographicdisplays.plugin.config.upgrade.AnimationsLegacyUpgrade;
 import me.filoghost.holographicdisplays.plugin.config.upgrade.DatabaseLegacyUpgrade;
 import me.filoghost.holographicdisplays.plugin.config.upgrade.SymbolsLegacyUpgrade;
 import me.filoghost.holographicdisplays.plugin.hologram.base.BaseHologram;
-import me.filoghost.holographicdisplays.plugin.hologram.base.ImmutablePosition;
 import me.filoghost.holographicdisplays.plugin.hologram.tracking.LineTrackerManager;
 import me.filoghost.holographicdisplays.plugin.internal.hologram.InternalHologram;
 import me.filoghost.holographicdisplays.plugin.internal.hologram.InternalHologramLine;
@@ -117,8 +117,8 @@ public class HolographicDisplays extends FCommonsPlugin {
         lineTrackerManager = new LineTrackerManager(nmsManager, placeholderTracker, lineClickListener, tickClock);
         apiHologramManager = new APIHologramManager(lineTrackerManager);
         v2HologramManager = new V2HologramManager(lineTrackerManager);
-        Function<ImmutablePosition, Hologram> hologramFactory =
-                (ImmutablePosition position) -> apiHologramManager.createHologram(position, this);
+        Function<Position, Hologram> hologramFactory =
+                (Position position) -> apiHologramManager.createHologram(position, this);
         internalHologramManager = new InternalHologramManager(hologramFactory);
 
         // Run only once at startup, before loading the configuration
@@ -192,7 +192,7 @@ public class HolographicDisplays extends FCommonsPlugin {
         for (InternalHologramConfig hologramConfig : hologramConfigs) {
             try {
                 List<InternalHologramLine> lines = hologramConfig.deserializeLines();
-                ImmutablePosition position = hologramConfig.deserializePosition();
+                Position position = hologramConfig.deserializePosition();
                 InternalHologram hologram = internalHologramManager.createHologram(hologramConfig.getName(), position);
                 hologram.addLines(lines);
             } catch (InternalHologramLoadException e) {

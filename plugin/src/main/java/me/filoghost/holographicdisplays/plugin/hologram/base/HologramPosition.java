@@ -5,6 +5,7 @@
  */
 package me.filoghost.holographicdisplays.plugin.hologram.base;
 
+import me.filoghost.holographicdisplays.api.beta.Position;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -19,15 +20,23 @@ class HologramPosition {
     private int chunkX, chunkZ;
     private @NotNull ChunkLoadState chunkLoadState;
 
-    HologramPosition(@NotNull ImmutablePosition position) {
-        this.position = position;
+    HologramPosition(@NotNull Position position) {
+        this(ImmutablePosition.of(position));
+    }
+
+    private HologramPosition(@NotNull ImmutablePosition position) {
+        this.position = ImmutablePosition.of(position);
         this.world = Bukkit.getWorld(position.getWorldName());
         this.chunkX = getChunkCoordinate(position.getX());
         this.chunkZ = getChunkCoordinate(position.getZ());
         this.chunkLoadState = ChunkLoadState.UNKNOWN;
     }
 
-    final void set(@NotNull ImmutablePosition position) {
+    final void set(@NotNull Position position) {
+        set(ImmutablePosition.of(position));
+    }
+
+    private void set(@NotNull ImmutablePosition position) {
         boolean worldChanged = !this.position.isInSameWorld(position);
         int chunkX = getChunkCoordinate(position.getX());
         int chunkZ = getChunkCoordinate(position.getZ());
@@ -95,7 +104,7 @@ class HologramPosition {
         return world;
     }
 
-    @NotNull ImmutablePosition getPosition() {
+    @NotNull Position getPosition() {
         return position;
     }
 
