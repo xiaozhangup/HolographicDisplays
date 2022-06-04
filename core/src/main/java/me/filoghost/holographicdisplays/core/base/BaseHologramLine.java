@@ -7,6 +7,7 @@ package me.filoghost.holographicdisplays.core.base;
 
 import me.filoghost.fcommons.Preconditions;
 import me.filoghost.holographicdisplays.common.PositionCoordinates;
+import me.filoghost.holographicdisplays.core.api.current.DefaultVisibilitySettings;
 import me.filoghost.holographicdisplays.core.tracking.LineTracker;
 import me.filoghost.holographicdisplays.core.tracking.LineTrackerManager;
 import org.bukkit.GameMode;
@@ -66,6 +67,10 @@ public abstract class BaseHologramLine extends BaseHologramComponent implements 
 
     public final Plugin getCreatorPlugin() {
         return hologram.getCreatorPlugin();
+    }
+
+    public final DefaultVisibilitySettings getVisibilitySettings() {
+        return hologram.getVisibilitySettings();
     }
 
     protected boolean canInteract(Player player) {

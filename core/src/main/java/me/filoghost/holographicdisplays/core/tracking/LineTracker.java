@@ -18,7 +18,7 @@ import java.util.Map;
 
 public abstract class LineTracker<T extends Viewer> {
 
-    private static final int MODIFY_VIEWERS_INTERVAL_TICKS = 5;
+    private static final int MODIFY_VIEWERS_INTERVAL_TICKS = 20;
 
     private final TickClock tickClock;
     private final Map<Player, T> viewers;
@@ -28,6 +28,7 @@ public abstract class LineTracker<T extends Viewer> {
      * Flag to indicate that the line has changed in some way and there could be the need to send update packets.
      */
     private boolean lineChanged;
+    private int lastVisibilitySettingsVersion;
 
     protected LineTracker(TickClock tickClock) {
         this.tickClock = tickClock;
@@ -51,7 +52,7 @@ public abstract class LineTracker<T extends Viewer> {
     }
 
     @MustBeInvokedByOverriders
-    protected void update(List<CachedPlayer> onlinePlayers) {
+    protected void update(List<CachedPlayer> onlinePlayers, List<CachedPlayer> movedPlayers) {
         boolean sendChangesPackets = false;
 
         // First, detect the changes if the flag is on and set it off
@@ -69,15 +70,16 @@ public abstract class LineTracker<T extends Viewer> {
         }
 
         // Then, send the changes (if any) to already tracked players
-        if (sendChangesPackets) {
-            if (hasViewers()) {
-                sendChangesPackets(iterableViewers);
-            }
-            clearDetectedChanges();
+        if (sendChangesPackets && hasViewers()) {
+            sendChangesPackets(iterableViewers);
         }
 
-        // Finally, add/remove tracked players sending them the full spawn/destroy packets
-        modifyViewersAndSendPackets(onlinePlayers);
+        // Finally, add/remove viewers sending them the full spawn/destroy packets
+        modifyViewersAndSendPackets(onlinePlayers, movedPlayers);
+
+        if (sendChangesPackets) {
+            clearDetectedChanges();
+        }
     }
 
     protected abstract void detectChanges();
@@ -86,15 +88,30 @@ public abstract class LineTracker<T extends Viewer> {
 
     protected abstract boolean updatePlaceholders();
 
-    private void modifyViewersAndSendPackets(List<CachedPlayer> onlinePlayers) {
+    private void modifyViewersAndSendPackets(List<CachedPlayer> onlinePlayers, List<CachedPlayer> movedPlayers) {
         if (!getLine().isInLoadedChunk()) {
             resetViewersAndSendDestroyPackets();
             return;
         }
 
+        boolean checkAllPlayers = false;
+
+        int visibilitySettingsVersion = getLine().getVisibilitySettings().getVersion();
+        if (visibilitySettingsVersion != lastVisibilitySettingsVersion) {
+            lastVisibilitySettingsVersion = visibilitySettingsVersion;
+            checkAllPlayers = true;
+        }
+
         // Add the identity hash code to avoid updating all the lines at the same time
-        if ((tickClock.getCurrentTick() + hashCode()) % MODIFY_VIEWERS_INTERVAL_TICKS != 0) {
-            return;
+        if ((tickClock.getCurrentTick() + hashCode()) % MODIFY_VIEWERS_INTERVAL_TICKS == 0) {
+            checkAllPlayers = true;
+        }
+
+        List<CachedPlayer> playersToCheck;
+        if (checkAllPlayers) {
+            playersToCheck = onlinePlayers;
+        } else {
+            playersToCheck = movedPlayers;
         }
 
         // Lazy initialization
@@ -102,9 +119,9 @@ public abstract class LineTracker<T extends Viewer> {
         MutableViewers<T> removedPlayers = null;
 
         // Micro-optimization, don't use for-each loop to avoid creating a new Iterator (method called frequently)
-        int size = onlinePlayers.size();
+        int size = playersToCheck.size();
         for (int i = 0; i < size; i++) {
-            CachedPlayer player = onlinePlayers.get(i);
+            CachedPlayer player = playersToCheck.get(i);
             Player bukkitPlayer = player.getBukkitPlayer();
             if (shouldTrackPlayer(player)) {
                 if (!viewers.containsKey(bukkitPlayer)) {

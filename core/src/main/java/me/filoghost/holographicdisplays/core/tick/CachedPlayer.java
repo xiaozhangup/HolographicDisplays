@@ -14,6 +14,7 @@ public class CachedPlayer {
     private final TickClock tickClock;
 
     private Location location;
+    protected boolean movedThisTick;
     private long locationUpdateTick;
 
     public CachedPlayer(Player player, TickClock tickClock) {
@@ -26,14 +27,13 @@ public class CachedPlayer {
         return player;
     }
 
-    public Location getLocation() {
-        // Avoid creating a new object on each invocation
-        long currentTick = tickClock.getCurrentTick();
-        if (locationUpdateTick != currentTick) {
-            location = player.getLocation();
-            locationUpdateTick = currentTick;
-        }
+    void onTick() {
+        Location newLocation = player.getLocation();
+        movedThisTick = !newLocation.equals(location);
+        location = newLocation;
+    }
 
+    public Location getLocation() {
         return location;
     }
 
