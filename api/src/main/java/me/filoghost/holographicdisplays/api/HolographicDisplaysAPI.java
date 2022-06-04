@@ -61,24 +61,36 @@ public interface HolographicDisplaysAPI {
     }
 
     /**
-     * Creates a hologram at given location.
+     * Creates a hologram.
      *
-     * @param location the location where it will appear
+     * @param location the initial location of the hologram
      * @return the created hologram
      * @since 1
      */
     @NotNull Hologram createHologram(@NotNull Location location);
 
+    /**
+     * Creates a hologram.
+     *
+     * @param position the initial position of the hologram
+     * @return the created hologram
+     * @since 1
+     */
     @NotNull Hologram createHologram(@NotNull Position position);
 
     /**
-     * Returns all the active holograms. A hologram is no longer active after {@link Hologram#delete()} is invoked.
+     * Returns all the valid holograms. A hologram is no longer valid after {@link Hologram#delete()} is invoked.
      *
-     * @return an immutable collection of active holograms
+     * @return an immutable collection of holograms
      * @since 1
      */
     @NotNull Collection<Hologram> getHolograms();
 
+    /**
+     * Deletes all the holograms.
+     *
+     * @since 1
+     */
     void deleteHolograms();
 
     /**

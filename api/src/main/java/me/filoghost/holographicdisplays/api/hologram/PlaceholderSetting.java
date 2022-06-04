@@ -5,10 +5,30 @@
  */
 package me.filoghost.holographicdisplays.api.hologram;
 
+/**
+ * @since 1
+ */
 public enum PlaceholderSetting {
 
+    /**
+     * The default setting for placeholders (which is currently equivalent to {@link #DISABLE_ALL}).
+     *
+     * @since 1
+     */
     DEFAULT,
+
+    /**
+     * Enable all placeholders.
+     *
+     * @since 1
+     */
     ENABLE_ALL,
+
+    /**
+     * Disable all placeholders.
+     *
+     * @since 1
+     */
     DISABLE_ALL
 
 }
