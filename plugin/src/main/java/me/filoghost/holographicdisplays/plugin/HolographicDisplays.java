@@ -14,7 +14,7 @@ import me.filoghost.holographicdisplays.api.Position;
 import me.filoghost.holographicdisplays.core.HolographicDisplaysCore;
 import me.filoghost.holographicdisplays.plugin.bridge.bungeecord.BungeeServerTracker;
 import me.filoghost.holographicdisplays.plugin.bridge.placeholderapi.PlaceholderAPIHook;
-import me.filoghost.holographicdisplays.plugin.commands.HologramCommandManager;
+//import me.filoghost.holographicdisplays.plugin.commands.HologramCommandManager;
 import me.filoghost.holographicdisplays.plugin.commands.InternalHologramEditor;
 import me.filoghost.holographicdisplays.plugin.config.ConfigManager;
 import me.filoghost.holographicdisplays.plugin.config.InternalHologramConfig;
@@ -68,11 +68,11 @@ public class HolographicDisplays extends FCommonsPlugin {
                     "You are probably running CraftBukkit instead of Spigot.");
         }
 
-        if (getCommand("holograms") == null) {
-            throw new PluginEnableException(
-                    "Holographic Displays was unable to register the command \"holograms\".",
-                    "This can be caused by edits to plugin.yml or other plugins.");
-        }
+//        if (getCommand("holograms") == null) {
+//            throw new PluginEnableException(
+//                    "Holographic Displays was unable to register the command \"holograms\".",
+//                    "This can be caused by edits to plugin.yml or other plugins.");
+//        }
 
         PrintableErrorCollector errorCollector = new PrintableErrorCollector();
 
@@ -92,9 +92,9 @@ public class HolographicDisplays extends FCommonsPlugin {
         // Load the configuration
         load(errorCollector);
 
-        // Commands
-        internalHologramEditor = new InternalHologramEditor(internalHologramManager, configManager);
-        new HologramCommandManager(this, internalHologramEditor).register(this);
+//        // Commands
+//        internalHologramEditor = new InternalHologramEditor(internalHologramManager, configManager);
+//        new HologramCommandManager(this, internalHologramEditor).register(this);
 
         // Setup external plugin hooks
         PlaceholderAPIHook.setup();
